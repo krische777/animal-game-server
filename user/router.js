@@ -10,6 +10,7 @@ router.post('/signup', (req, res, next) => {
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 10)
   }
+
   if (user.email == null || user.password == null ||
     !user.email || !user.password) {
     res.status(400).send({
@@ -29,6 +30,7 @@ router.post('/signup', (req, res, next) => {
       })
       .catch(next)
   }
+
 })
 
 module.exports = router

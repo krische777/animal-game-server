@@ -18,8 +18,7 @@ router.post('/login', (req, res, next)=>{
        }
         
        else {
-        User
-        .findOne({
+        User.findOne({
           where: {
             email: req.body.email
           }
@@ -53,5 +52,6 @@ router.post('/login', (req, res, next)=>{
        }
 
 })
+
 
 module.exports=router
