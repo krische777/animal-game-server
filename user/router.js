@@ -8,7 +8,8 @@ router.post('/signup', (req, res, next) => {
   const user = {
     firstName: req.body.firstName,
     email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 10)
+    password: bcrypt.hashSync(req.body.password, 10),
+    roomId: req.body.roomId
   }
   if (user.email == null || user.password == null ||
     !user.email || !user.password) {
