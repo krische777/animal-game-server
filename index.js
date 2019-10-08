@@ -5,14 +5,15 @@ const app = express()
 const port = process.env.PORT || 8888
 const db=require('./db')
 const authRouter=require('./auth/router')
-
 const userRouter=require('./user/router')
+const roomRouter = require('./room/router')
 
 const corsMiddleware = cors()
 app.use(corsMiddleware)
 app.use(bodyParser.json())
 app.use(userRouter)
 app.use(authRouter)
+app.use(roomRouter)
 
 app.get('/test', (request, response)=>response.send('hi there'))
 
