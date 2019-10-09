@@ -4,7 +4,7 @@ const User = require('../user/model')
 const auth = require('../auth/middleware')
 const router = new Router()
 
-router.get('/room', auth,(req, res, next) => {
+router.get('/room',(req, res, next) => {
   Room.findAll({
     include: [
       { model: User}

@@ -4,7 +4,8 @@ const User = require('../user/model')
 
 const Room = sequelize.define('room', {
   name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    unique:true
   },
   status: {
     type: Sequelize.STRING, 
