@@ -10,6 +10,12 @@ const Room = sequelize.define('room', {
   status: {
     type: Sequelize.STRING, 
   },
+  player1: {
+    type:Sequelize.STRING
+  },
+  player2: {
+    type:Sequelize.STRING
+  }
 })
 User.belongsTo(Room)
 Room.hasMany(User)
