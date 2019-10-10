@@ -48,4 +48,37 @@ router.post('/room', auth,
     stream.send(data)
   })
 
+  router.put('/room', auth,
+    async(req, res, next)=>{
+      const room=await Room.findOne({
+        where: {
+           name: req.body.roomName
+        }
+      })
+      //&&
+      if(room) {
+        if(room.status=="EMPTY"){
+          room.update({
+            status: "WAITING",
+            player1: req.body.userId
+          })
+          res.status(200)
+        } else if(room.status=="WAITING"){
+          room.update({
+            status: "FULL",
+            player2: req.body.userId
+          })
+          res.status(200)
+        }else {
+          res.status(400)
+          res.send("Room is full cannot Join")
+        }
+      } else {
+        res.status(400)
+        res.send("No room found")
+      }
+      stream.send("game id when ready")
+    }
+  )
+
 module.exports = router
