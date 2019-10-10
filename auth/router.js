@@ -25,7 +25,7 @@ router.post('/login', (req, res, next)=>{
         })
         .then(entity => {
           if (!entity) {
-            res.status(400).send({
+            res.status(401).send({
               message: 'User with that email does not exist'
             })
           }

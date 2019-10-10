@@ -10,10 +10,11 @@ router.get('/room', auth,(req, res, next) => {
       { model: User}
     ]
   })
-    .then(result => {
-      res.send(result)
-    })
+    .then(rooms => {
+        res.json({ success: true, rooms });
+        })
 })
+
 router.post('/room',auth,
   (req, res, next) => {
     const newRoom = {
