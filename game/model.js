@@ -22,7 +22,6 @@ const Game = sequelize.define('game', {
         type: Sequelize.STRING
     }
 })
-// User.belongsTo(Game)
 Game.hasMany(User)
 
 module.exports = Game

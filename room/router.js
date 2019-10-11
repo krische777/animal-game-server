@@ -49,7 +49,6 @@ router.post('/room', auth,
         const data = JSON.stringify(room)
         console.log('data in this lobby after post', data)
         res.status(200)
-        //stream.send(room)
         stream.send(createEvent(JSON.stringify(room), 'ROOM_UPDATED'))
     })
 
@@ -117,5 +116,37 @@ router.put('/room', auth,
         }
     }
 )
+
+router.put('/room/fight',
+    async (req, res, next) => {
+      console.log('/room/fight', req.body)
+        const id = req.body.gameId
+        const game = await Game.findByPk(id)
+        if (game) {
+            if (req.body.fightAction === "Attack") {
+                if (game.firstPlayer === parseInt(req.body.userId)) {
+                    const player1Health = game.healthp1;
+                    await Game.update({healthp1: player1Health - 20}, {where: {id: req.body.gameId}})
+                    const updated = await Game.findByPk(id)
+                    //const data = JSON.stringify(updated)
+                    console.log('sending back game', updated)
+                    res.status(200)
+                    stream.send({"data": updated, type: 'GAME_PLAYER_ATACKED'})
+
+                } else if (game.secondPlayer === parseInt(req.body.userId)) {
+                    const player2Health = game.healthp2;
+                    await Game.update({healthp2: player2Health - 20}, {where: {id: req.body.gameId}})
+                    const updated = await Game.findByPk(id)
+                    //const data = JSON.stringify(updated)
+                    console.log('sending back game', updated)
+                    res.status(200)
+                    stream.send({"data": updated, type: 'GAME_PLAYER_ATTACKED'})
+
+                }
+            }
+
+        }
+    })
+
 
 module.exports = router
