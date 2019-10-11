@@ -37,8 +37,10 @@ router.post('/game',
 
 router.put('/game/fight',
     async (req, res, next) => {
+      console.log('/game/fight', req.body)
         const id = req.body.gameId
         const game = await Game.findByPk(id)
+        console.log('/game/flight game:', game)
         if (game) {
             if (req.body.fightAction === "Attack") {
                 if (game.firstPlayer === parseInt(req.body.userId)) {
