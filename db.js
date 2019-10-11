@@ -5,7 +5,7 @@ const databaseUrl = process.env.DATABASE_URL || 'postgres://postgres:animal-app@
 const db = new Sequelize((databaseUrl))
 
 db.sync({force: false})
-    .then(() => console.log('database synced'))
+    .then(()=> console.log('database synced'))
     .catch(console.error)
 
 module.exports = db
